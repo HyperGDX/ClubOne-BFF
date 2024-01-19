@@ -6,6 +6,7 @@ type ApiGroup struct {
 	// DBApi
 	// JwtApi
 	BaseApi
+	ForumApi
 	// SystemApi
 	// CasbinApi
 	// AutoCodeApi
