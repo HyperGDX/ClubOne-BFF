@@ -23,7 +23,7 @@ func (userService *BackendUserService) Login(u *system.SysUser) (userInter *syst
 	// }
 	url := global.GVA_CONFIG.Backend.BaseApi
 	user := system.SysUser{}
-	res := utils.HttpRequest(url + "/login")
+	res, err := utils.HttpRequest(url + "/login")
 	// err = global.GVA_DB.Where("username = ?", u.Username).Preload("Authorities").Preload("Authority").First(&user).Error
 	// if err == nil {
 	// 	if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
