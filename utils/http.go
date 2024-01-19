@@ -1,0 +1,26 @@
+package utils
+
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
+
+func HttpRequest(url string) (string, error) {
+	response, err := http.Get(url)
+	if err != nil || response.StatusCode != http.StatusOK {
+		//c.Status(http.StatusServiceUnavailable)
+		return "", err
+	}
+	return getStrfromResponse(response), nil
+
+}
+
+func getStrfromResponse(response *http.Response) string {
+	reader := response.Body
+	defer reader.Close()
+	body, _ := io.ReadAll(reader)
+	bodystr := string(body)
+	fmt.Println(bodystr)
+	return bodystr
+}
