@@ -9,5 +9,9 @@ import (
 type ForumApi struct{}
 
 func (b *ForumApi) Posts(c *gin.Context) {
-	response.FailWithMessage("验证码错误", c)
+	res, err := forumService.GetPosts();
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+	}
+	response.Result(200, res, "操作成功", c)
 }

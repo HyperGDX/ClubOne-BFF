@@ -10,10 +10,9 @@ type ForumRouter struct{}
 
 func (s *ForumRouter) InitForumRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	forumRouter := Router.Group("forum")
-	baseApi := v1.ApiGroupApp.SystemApiGroup.BaseApi
+	forumApi := v1.ApiGroupApp.SystemApiGroup.ForumApi
 	{
-		forumRouter.GET("posts", baseApi.Login)
-		//baseRouter.POST("captcha", baseApi.Captcha)
+		forumRouter.GET("posts", forumApi.Posts)
 	}
 	return forumRouter
 }

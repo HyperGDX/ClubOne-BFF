@@ -3,14 +3,11 @@ package initialize
 import (
 	//swaggerFiles "github.com/swaggo/files"
 	"net/http"
-
 	//"github.com/flipped-aurora/gin-vue-admin/server/docs"
 	"bff/global"
 	//"github.com/flipped-aurora/gin-vue-admin/server/middleware"
-	"bff/router"
-
 	"bff/middleware"
-
+	"bff/router"
 	"github.com/gin-gonic/gin"
 	//"github.com/swaggo/swag/example/basic/docs"
 	//ginSwagger "github.com/swaggo/gin-swagger"

@@ -54,12 +54,12 @@ type BaseApi struct{}
 // }
 
 // 类型转换
-func interfaceToInt(v interface{}) (i int) {
-	switch v := v.(type) {
-	case int:
-		i = v
-	default:
-		i = 0
-	}
-	return
-}
+// func interfaceToInt(v interface{}) (i int) {
+// 	switch v := v.(type) {
+// 	case int:
+// 		i = v
+// 	default:
+// 		i = 0
+// 	}
+// 	return
+// }

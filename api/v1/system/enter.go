@@ -26,6 +26,7 @@ var (
 	// jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	// menuService             = service.ServiceGroupApp.SystemServiceGroup.MenuService
 	userService = service.ServiceGroupApp.BackendServiceGroup.BackendUserService
+	forumService = service.ServiceGroupApp.BackendServiceGroup.BackendForumService
 
 // initDBService           = service.ServiceGroupApp.SystemServiceGroup.InitDBService
 // casbinService           = service.ServiceGroupApp.SystemServiceGroup.CasbinService

@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -23,4 +24,25 @@ func getStrfromResponse(response *http.Response) string {
 	bodystr := string(body)
 	fmt.Println(bodystr)
 	return bodystr
+}
+
+func HttpGetJsonRes(url string, result interface{}) error {
+	res, err := http.Get(url)
+	if err != nil || res.StatusCode != http.StatusOK {
+		return err
+	}
+
+	defer res.Body.Close()
+	data, err := io.ReadAll(res.Body)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(data, result)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }

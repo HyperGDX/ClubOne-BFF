@@ -13,3 +13,7 @@ type LoginResponse struct {
 	Token     string         `json:"token"`
 	ExpiresAt int64          `json:"expiresAt"`
 }
+
+type PostsRes struct {
+	Posts []system.Post `json:"posts"`
+}
