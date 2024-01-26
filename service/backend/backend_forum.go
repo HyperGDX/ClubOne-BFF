@@ -4,6 +4,7 @@ import (
 	"bff/global"
 	"bff/model/system"
 	"bff/utils"
+	"fmt"
 )
 
 type BackendForumService struct{}
@@ -17,13 +18,13 @@ type BackendForumService struct{}
 //@param: u *model.SysUser
 //@return: err error, userInter *model.SysUser
 
-func (forumService *BackendForumService) GetPosts() (*[]system.Post, error) {
-	url := global.GVA_CONFIG.Backend.ForumApi + "/posts"
+func (forumService *BackendForumService) GetPosts(channelId int) (*[]system.Post, error) {
+	url := fmt.Sprintf("%s/posts/channel/%d", global.GVA_CONFIG.Backend.ForumApi, channelId)
 	posts := &[]system.Post{}
 	err := utils.HttpGetJsonRes(url, &posts)
 	if err != nil {
 		return nil, err
 	}
-	print(posts)
+	fmt.Println(posts)
 	return posts, nil
 }

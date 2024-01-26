@@ -12,7 +12,7 @@ func (s *ForumRouter) InitForumRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	forumRouter := Router.Group("forum")
 	forumApi := v1.ApiGroupApp.SystemApiGroup.ForumApi
 	{
-		forumRouter.GET("posts", forumApi.Posts)
+		forumRouter.GET("posts/channel/:channelId", forumApi.Posts)
 	}
 	return forumRouter
 }

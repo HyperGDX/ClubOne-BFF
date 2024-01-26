@@ -2,6 +2,8 @@ package system
 
 import (
 	"bff/model/common/response"
+	sysRes "bff/model/system/response"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,9 +11,28 @@ import (
 type ForumApi struct{}
 
 func (b *ForumApi) Posts(c *gin.Context) {
-	res, err := forumService.GetPosts();
+	channelIdStr := c.Param("channelId")
+	channelId, err := strconv.Atoi(channelIdStr)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 	}
-	response.Result(200, res, "操作成功", c)
+	posts, err := forumService.GetPosts(channelId);
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+	}
+	PostRes := make([]sysRes.Post, len(*posts))
+	for i, post :=range *posts {
+		PostRes[i] = sysRes.Post{
+			PostID: post.PostID,
+			UserName: "user.UserName",
+			UserAvatar: "user.UserAvatar",
+			PostTitle: post.PostTitle,
+			PostContent: post.PostContent,
+			PostPics: post.PostPics,
+			UpdateTime: post.UpdateTime,
+			LikeCount: post.LikeCount,
+			ViewCount: post.ViewCount,
+		}
+	}
+	response.Result(200, PostRes, "操作成功", c)
 }

@@ -18,14 +18,12 @@ import (
 // }
 
 type Post struct {
-PostID int `json:"postId"`  // 
+PostID int `json:"id"`  // 
 UserID int `json:"userId"` // 
-UserName string `json:"userName"` // 
-UserAvatar string `json:"avatar"` // 
 PostTitle string `json:"title"` // 
 PostContent string `json:"content"` // 
 PostPics []string `json:"pics"` // 
-UpdateTime time.Time `json:"createdAt"` // 
-LikeCount uint `json:"likes"` // 
-ViewCount int `json:"views"` // 
+UpdateTime time.Time `json:"createTime"` // 
+LikeCount uint `json:"likeCount"` // 
+ViewCount int `json:"viewCount"` // 
 }
