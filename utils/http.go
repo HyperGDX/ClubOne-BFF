@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bff/model/common/response"
+	"bff/model/system"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -27,23 +28,30 @@ func getStrfromResponse(response *http.Response) string {
 	return bodystr
 }
 
-func HttpGetJsonRes(url string, result response.Response) error {
+func HttpGetJsonRes(url string) (*response.Response, error) {
+	var posts []system.Post
+	result := response.Response{
+		Data: &posts,
+	}
 	res, err := http.Get(url)
-	if err != nil || res.StatusCode != http.StatusOK {
-		return err
+	if err != nil {
+		return nil, err
+	} else if res.StatusCode != http.StatusOK {
+		err = fmt.Errorf("backend went wrong: %d", res.StatusCode)
+		return nil, err
 	}
 
 	defer res.Body.Close()
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	err = json.Unmarshal(data, &result)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return &result, nil
 
 }

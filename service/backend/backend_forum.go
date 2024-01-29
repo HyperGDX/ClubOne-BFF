@@ -2,7 +2,6 @@ package backend
 
 import (
 	"bff/global"
-	"bff/model/common/response"
 	"bff/model/system"
 	"bff/utils"
 	"fmt"
@@ -21,14 +20,12 @@ type BackendForumService struct{}
 
 func (forumService *BackendForumService) GetPosts(channelId int) ([]system.Post, error) {
 	url := fmt.Sprintf("%s/posts/channel/%d", global.GVA_CONFIG.Backend.ForumApi, channelId)
-	var posts []system.Post
-	res := response.Response{
-    	Data: &posts,
-	}
-	err := utils.HttpGetJsonRes(url, res)
+
+	res, err := utils.HttpGetJsonRes(url)
 	if err != nil {
 		return nil, err
 	}
-	
-	return *res.Data.(*[]system.Post), nil
+
+	//return *res.Data.(*[]system.Post), nil
+	return res.Data.([]system.Post), nil
 }
