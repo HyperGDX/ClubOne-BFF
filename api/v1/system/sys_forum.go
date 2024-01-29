@@ -20,8 +20,8 @@ func (b *ForumApi) Posts(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 	}
-	PostRes := make([]sysRes.Post, len(*posts))
-	for i, post :=range *posts {
+	PostRes := make([]sysRes.Post, len(posts))
+	for i, post :=range posts {
 		PostRes[i] = sysRes.Post{
 			PostID: post.PostID,
 			UserName: "user.UserName",

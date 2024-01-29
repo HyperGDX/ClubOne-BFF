@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bff/model/common/response"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -26,7 +27,7 @@ func getStrfromResponse(response *http.Response) string {
 	return bodystr
 }
 
-func HttpGetJsonRes(url string, result interface{}) error {
+func HttpGetJsonRes(url string, result response.Response) error {
 	res, err := http.Get(url)
 	if err != nil || res.StatusCode != http.StatusOK {
 		return err
@@ -38,7 +39,7 @@ func HttpGetJsonRes(url string, result interface{}) error {
 		return err
 	}
 
-	err = json.Unmarshal(data, result)
+	err = json.Unmarshal(data, &result)
 	if err != nil {
 		return err
 	}
