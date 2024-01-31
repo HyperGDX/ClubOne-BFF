@@ -17,7 +17,9 @@ func (b *ForumApi) Posts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	posts, err := forumService.GetPosts(channelId)
+	offsetStr := c.Query("offset")
+	offset, err := strconv.Atoi(offsetStr)
+	posts, err := forumService.GetPosts(channelId, offset);
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return

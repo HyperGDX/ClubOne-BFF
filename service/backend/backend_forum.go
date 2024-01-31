@@ -18,8 +18,8 @@ type BackendForumService struct{}
 //@param: u *model.SysUser
 //@return: err error, userInter *model.SysUser
 
-func (forumService *BackendForumService) GetPosts(channelId int) ([]system.Post, error) {
-	url := fmt.Sprintf("%s/posts/channel/%d", global.GVA_CONFIG.Backend.ForumApi, channelId)
+func (forumService *BackendForumService) GetPosts(channelId int, offset int) ([]system.Post, error) {
+	url := fmt.Sprintf("%s/posts/channel/%d?offset=%d", global.GVA_CONFIG.Backend.ForumApi, channelId, offset)
 
 	res, err := utils.HttpGetJsonRes(url)
 	if err != nil {
