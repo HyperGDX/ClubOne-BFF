@@ -40,8 +40,6 @@ func RunServer() {
 	time.Sleep(10 * time.Microsecond)
 	global.GVA_LOG.Info("server run success on ", zap.String("address", address))
 
-	fmt.Printf(`
-			start server
-		`, address)
+	fmt.Printf("start server")
 	global.GVA_LOG.Error(s.ListenAndServe().Error())
 }

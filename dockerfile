@@ -13,4 +13,5 @@ RUN go build -o main .
 # 暴露端口
 EXPOSE 8102
 # 启动应用
-CMD ["./main"]
+CMD ["./main", "-c", "config.docker.yaml"]
+
