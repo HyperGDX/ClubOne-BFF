@@ -25,7 +25,10 @@ func (forumService *BackendForumService) GetPosts(channelId int) ([]system.Post,
 	if err != nil {
 		return nil, err
 	}
-
-	return *res.Data.(*[]system.Post), nil
+	if res.Data != nil {
+		return *res.Data.(*[]system.Post), nil
+	} else {
+		return []system.Post{}, nil
+	}
 	//return res.Data.([]system.Post), nil
 }
