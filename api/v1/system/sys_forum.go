@@ -17,7 +17,7 @@ func (b *ForumApi) Posts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	offsetStr := c.Query("offset")
+	offsetStr := c.Query("pageIndex")
 	offset, err := strconv.Atoi(offsetStr)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
