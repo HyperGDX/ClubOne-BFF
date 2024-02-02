@@ -4,6 +4,7 @@ backend:
   base-api-url: https://5212cefc-c1c0-49f6-97d9-642b3dfd2cd1.mock.pstmn.io
   # forum-api-url: http://forum:8103/forum
   forum-api-url: http://localhost:8103/forum
+  third-api-url: http://localhost:8108/third
 
 # jwt configuration
 jwt:

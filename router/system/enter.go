@@ -6,6 +6,7 @@ type RouterGroup struct {
 	// SysRouter
 	BaseRouter
 	ForumRouter
+	ThirdRouter
 	// InitRouter
 	// MenuRouter
 	// UserRouter

@@ -10,7 +10,7 @@ import (
 
 type ForumApi struct{}
 
-func (b *ForumApi) Posts(c *gin.Context) {
+func (b *ForumApi) GetPostsByChannel(c *gin.Context) {
 	channelIdStr := c.Param("channelId")
 	channelId, err := strconv.Atoi(channelIdStr)
 	if err != nil {
@@ -44,3 +44,4 @@ func (b *ForumApi) Posts(c *gin.Context) {
 	}
 	response.Result(200, PostRes, "操作成功", c)
 }
+

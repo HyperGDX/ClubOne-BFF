@@ -27,3 +27,12 @@ UpdateTime time.Time `json:"createTime"` //
 LikeCount uint `json:"likeCount"` // 
 ViewCount int `json:"viewCount"` // 
 }
+
+type OssPolicy struct {
+	Accessid string `json:"accessid"` //,
+    Policy string `json:"policy"` //,
+    Signature string `json:"signature"` //,
+    Dir string `json:"dir"` //,
+    Host string `json:"host"` //,
+    Expire string `json:"expire"` //,
+}

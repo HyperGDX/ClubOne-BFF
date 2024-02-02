@@ -8,6 +8,7 @@ import (
 	//"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"bff/middleware"
 	"bff/router"
+
 	"github.com/gin-gonic/gin"
 	//"github.com/swaggo/swag/example/basic/docs"
 	//ginSwagger "github.com/swaggo/gin-swagger"
@@ -60,6 +61,7 @@ func Routers() *gin.Engine {
 	{
 		systemRouter.InitBaseRouter(PublicGroup) // 注册基础功能路由 不做鉴权
 		systemRouter.InitForumRouter(PublicGroup)
+		systemRouter.InitThirdRouter(PublicGroup)
 		//systemRouter.InitInitRouter(PublicGroup) // 自动初始化相关
 	}
 	// PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)

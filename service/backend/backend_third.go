@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-type BackendThirdService struct{}
+type BackendForumService struct{}
 
 //var
 
@@ -18,17 +18,15 @@ type BackendThirdService struct{}
 //@param: u *model.SysUser
 //@return: err error, userInter *model.SysUser
 
-func (forumService *BackendThirdService) GetPosts(channelId int, offset int) ([]system.Post, error) {
-	url := fmt.Sprintf("%s/posts/channel/%d?offset=%d", global.GVA_CONFIG.Backend.ForumApi, channelId, offset)
-
+func (thirdService *BackendThirdService) GetOssPolicy() (system.OssPolicy, error) {
+	url := fmt.Sprintf("%s/OSS/Policy", global.GVA_CONFIG.Backend.ThirdApi)
 	res, err := utils.HttpGetJsonRes(url)
 	if err != nil {
-		return nil, err
+		return system.OssPolicy{}, err
 	}
 	if res.Data != nil {
-		return *res.Data.(*[]system.Post), nil
+		return *res.Data.(*system.OssPolicy), nil
 	} else {
-		return []system.Post{}, nil
+		return system.OssPolicy{}, nil
 	}
-	//return res.Data.([]system.Post), nil
 }
