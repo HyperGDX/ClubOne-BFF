@@ -1,6 +1,12 @@
 package initialize
 
+import (
+	"bff/global"
+	"bff/middleware"
+)
+
 func OtherInit() {
+	middleware.Proxy = middleware.NewReverseProxy(global.GVA_CONFIG.Backend.AuthApi)
 	// dr, err := utils.ParseDuration(global.GVA_CONFIG.JWT.ExpiresTime)
 	// if err != nil {
 	// 	panic(err)

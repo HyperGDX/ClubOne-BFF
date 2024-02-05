@@ -8,6 +8,7 @@ import (
 	//"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"bff/middleware"
 	"bff/router"
+
 	"github.com/gin-gonic/gin"
 	//"github.com/swaggo/swag/example/basic/docs"
 	//ginSwagger "github.com/swaggo/gin-swagger"
@@ -62,8 +63,13 @@ func Routers() *gin.Engine {
 		systemRouter.InitForumRouter(PublicGroup)
 		//systemRouter.InitInitRouter(PublicGroup) // 自动初始化相关
 	}
-	// PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
-	// PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
+	PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
+	PrivateGroup.Use(middleware.Auth())
+	{
+		PrivateGroup.GET("/authtest", func(c *gin.Context) {
+			c.JSON(http.StatusOK, "ok")
+		})
+	}
 	// {
 	// 	systemRouter.InitApiRouter(PrivateGroup, PublicGroup)       // 注册功能api路由
 	// 	systemRouter.InitJwtRouter(PrivateGroup)                    // jwt相关路由
