@@ -1,13 +1,18 @@
 package utils
 
 import (
-	"bff/model/common/response"
-	"bff/model/system"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 )
+
+type JsonResponse struct {
+	Code int `json:"code"`
+	Data interface{} `json:"data"`
+	Message string `json:"message"`
+}
 
 func HttpRequest(url string) (string, error) {
 	response, err := http.Get(url)
@@ -28,30 +33,45 @@ func getStrfromResponse(response *http.Response) string {
 	return bodystr
 }
 
-func HttpGetJsonRes(url string) (*response.Response, error) {
-	var posts []system.Post
-	result := response.Response{
-		Data: &posts,
-	}
-	res, err := http.Get(url)
+func HttpGetJsonRes(url string, target interface{}) (error) {
+    res := JsonResponse{
+        Data: target,
+    }
+
+    resp, err := http.Get(url)
+    if err != nil {
+        return err
+    }
+    defer resp.Body.Close()
+
+    return json.NewDecoder(resp.Body).Decode(&res)
+}
+
+
+func HttpPostJsonRes(url string, body interface{},target interface{}) (error) {
+	// Convert body to JSON
+	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
-	} else if res.StatusCode != http.StatusOK {
-		err = fmt.Errorf("backend went wrong: %d", res.StatusCode)
-		return nil, err
+		return err
 	}
 
-	defer res.Body.Close()
-	data, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil, err
+	// Send HTTP POST request
+    resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonBody))
+    if err != nil {
+        return err
+    }
+    defer resp.Body.Close()
+
+		// Check HTTP response status code
+	if resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("bad status: %s", bodyBytes)
 	}
 
-	err = json.Unmarshal(data, &result)
-	if err != nil {
-		return nil, err
+	// Parse JSON response
+	res := JsonResponse{
+		Data: target,
 	}
 
-	return &result, nil
-
+    return json.NewDecoder(resp.Body).Decode(&res)
 }

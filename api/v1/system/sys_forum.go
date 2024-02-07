@@ -2,7 +2,9 @@ package system
 
 import (
 	"bff/model/common/response"
+	sysReq "bff/model/system"
 	sysRes "bff/model/system/response"
+	"encoding/json"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -43,5 +45,26 @@ func (b *ForumApi) GetPostsByChannel(c *gin.Context) {
 		}
 	}
 	response.Result(200, PostRes, "操作成功", c)
+}
+
+func (b *ForumApi) InsertPost(c *gin.Context) {
+	bodyBytes, err := c.GetRawData()
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	post := new(sysReq.Post)
+	err = json.Unmarshal(bodyBytes, &post)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	insertNum, err := forumService.InsertPost(post)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	response.Result(200, insertNum, "操作成功", c)
 }
 

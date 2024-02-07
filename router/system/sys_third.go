@@ -12,7 +12,7 @@ func (s *ThirdRouter) InitThirdRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	thirdRouter := Router.Group("third")
 	thirdApi := v1.ApiGroupApp.SystemApiGroup.ThirdApi
 	{
-		thirdRouter.GET("OSS/Policy", thirdApi.GetOssPolicy)
+		thirdRouter.GET("oss/policy", thirdApi.GetOssPolicy)
 	}
 	return thirdRouter
 }

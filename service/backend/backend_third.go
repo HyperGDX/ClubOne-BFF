@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-type BackendForumService struct{}
+type BackendThirdService struct{}
 
 //var
 
@@ -19,14 +19,11 @@ type BackendForumService struct{}
 //@return: err error, userInter *model.SysUser
 
 func (thirdService *BackendThirdService) GetOssPolicy() (system.OssPolicy, error) {
-	url := fmt.Sprintf("%s/OSS/Policy", global.GVA_CONFIG.Backend.ThirdApi)
-	res, err := utils.HttpGetJsonRes(url)
-	if err != nil {
-		return system.OssPolicy{}, err
-	}
-	if res.Data != nil {
-		return *res.Data.(*system.OssPolicy), nil
-	} else {
-		return system.OssPolicy{}, nil
-	}
+	policy := new(system.OssPolicy)
+	url := fmt.Sprintf("%s/oss/policy", global.GVA_CONFIG.Backend.ThirdApi)
+	err := utils.HttpGetJsonRes(url, policy)
+	    if err != nil {
+        panic(err)
+    }
+	return *policy, nil
 }

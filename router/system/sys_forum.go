@@ -13,7 +13,7 @@ func (s *ForumRouter) InitForumRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	forumApi := v1.ApiGroupApp.SystemApiGroup.ForumApi
 	{
 		forumRouter.GET("posts/channel/:channelId", forumApi.GetPostsByChannel)
-		forumRouter.GET("posts/OSS/Policy", forumApi.GetOssPolicy)
+		forumRouter.POST("posts", forumApi.InsertPost)
 	}
 	return forumRouter
 }
