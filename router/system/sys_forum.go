@@ -12,7 +12,8 @@ func (s *ForumRouter) InitForumRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	forumRouter := Router.Group("forum")
 	forumApi := v1.ApiGroupApp.SystemApiGroup.ForumApi
 	{
-		forumRouter.GET("posts/channel/:channelId", forumApi.Posts)
+		forumRouter.GET("posts/channel/:channelId", forumApi.GetPostsByChannel)
+		forumRouter.POST("posts", forumApi.InsertPost)
 	}
 	return forumRouter
 }

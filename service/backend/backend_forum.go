@@ -3,6 +3,7 @@ package backend
 import (
 	"bff/global"
 	"bff/model/system"
+	"bff/model/system/response"
 	"bff/utils"
 	"fmt"
 )
@@ -18,17 +19,23 @@ type BackendForumService struct{}
 //@param: u *model.SysUser
 //@return: err error, userInter *model.SysUser
 
-func (forumService *BackendForumService) GetPosts(channelId int, offset int) ([]system.Post, error) {
+func (forumService *BackendForumService) GetPosts(channelId int, offset int) ([]response.Post, error) {
 	url := fmt.Sprintf("%s/posts/channel/%d?offset=%d", global.GVA_CONFIG.Backend.ForumApi, channelId, offset)
-
-	res, err := utils.HttpGetJsonRes(url)
+	posts := new([]response.Post)
+	err := utils.HttpGetJsonRes(url, posts)
 	if err != nil {
 		return nil, err
 	}
-	if res.Data != nil {
-		return *res.Data.(*[]system.Post), nil
-	} else {
-		return []system.Post{}, nil
-	}
-	//return res.Data.([]system.Post), nil
+	return *posts, nil
 }
+
+func (forumService *BackendForumService) InsertPost(post *system.Post) (response.InsertPostRes,error) {
+	insertNum := new(response.InsertPostRes)
+	url := fmt.Sprintf("%s/posts", global.GVA_CONFIG.Backend.ForumApi)
+	err := utils.HttpPostJsonRes(url, post, insertNum)
+	if err != nil {
+		return *insertNum, err
+	}
+	return *insertNum, nil
+}
+
